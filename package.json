@@ -16,8 +16,8 @@
     "node": ">=18.0.0"
   },
   "dependencies": {
-    "better-sqlite3": "^12.4.1",
     "discord.js": "^14.27.0",
-    "moment": "^2.30.1"
+    "moment": "^2.30.1",
+    "node-sqlite3-wasm": "^0.8.61"
   }
 }

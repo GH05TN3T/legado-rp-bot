@@ -1,16 +1,51 @@
-const Database = require("better-sqlite3");
+// SQLite en WebAssembly: NO tiene script de instalación ni binario nativo que
+// descargar o compilar. Por eso pasa el escáner de seguridad de los paneles de
+// hosting (veltramon) que bloquea los módulos nativos "al instalar", y además
+// no depende de la versión de Node.
+const { Database } = require("node-sqlite3-wasm");
 
 // Permite mover la base de datos a un disco persistente definiendo DATABASE_PATH
 // en el panel de hosting. Si no se define, usa el archivo local de siempre.
 const dbPath = process.env.DATABASE_PATH || "warnings.db";
 
-const db = new Database(dbPath);
+const raw = new Database(dbPath);
 
-// Ajustes recomendados para un bot que corre 24/7:
-// WAL mejora la concurrencia y busy_timeout evita errores SQLITE_BUSY
-// cuando varias operaciones intentan escribir casi a la vez.
-db.pragma("journal_mode = WAL");
-db.pragma("busy_timeout = 5000");
+// Evita errores SQLITE_BUSY si dos operaciones intentan escribir casi a la vez.
+try { raw.exec("PRAGMA busy_timeout = 5000"); } catch (_) {}
+
+// Adaptador: expone la MISMA interfaz que el bot ya usaba (prepare(sql) devuelve
+// un statement con .run/.get/.all que aceptan parámetros posicionales variádicos,
+// más db.exec, db.close y db.open). Así ningún otro archivo necesita cambios.
+function bindValues(args) {
+    if (
+        args.length === 1 &&
+        args[0] !== null &&
+        typeof args[0] === "object" &&
+        !Array.isArray(args[0]) &&
+        !(args[0] instanceof Uint8Array)
+    ) {
+        return args[0]; // parámetros con nombre (objeto)
+    }
+    return args; // parámetros posicionales (?) o sin parámetros
+}
+
+function prepare(sql) {
+    return {
+        run: (...args) => raw.run(sql, bindValues(args)),
+        get: (...args) => {
+            const row = raw.get(sql, bindValues(args));
+            return row === null ? undefined : row; // igualar a better-sqlite3
+        },
+        all: (...args) => raw.all(sql, bindValues(args))
+    };
+}
+
+const db = {
+    prepare,
+    exec: sql => raw.exec(sql),
+    close: () => raw.close(),
+    get open() { return raw.isOpen; }
+};
 
 // Compatibilidad con la interfaz de transacciones usada por el bot.
 db.transaction = callback => (...args) => {
