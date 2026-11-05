@@ -1,0 +1,22 @@
+node_modules/
+
+# Credenciales y configuración local
+config.json
+.env
+.env.*
+!.env.example
+
+# Datos generados durante la ejecución
+*.db
+*.db-shm
+*.db-wal
+
+# Respaldos privados de la estructura del servidor
+backups/*.json
+
+# Registros y archivos temporales
+*.log
+npm-debug.log*
+.DS_Store
+Thumbs.db
+

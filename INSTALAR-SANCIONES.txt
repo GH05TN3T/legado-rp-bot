@@ -1,0 +1,30 @@
+TABLA DE SANCIONES EXTREMORP
+============================
+
+1. Reemplaza la carpeta anterior del bot por esta versión.
+2. Conserva tu config.json con el token y los IDs correctos.
+3. Abre CMD dentro de la carpeta y ejecuta:
+
+   npm run deploy
+   npm start
+
+4. Dentro de Discord usa:
+
+   /sanciones publicar
+
+El bot publicará las sanciones originales con el logo y el banner de ExtremoRP.
+La tabla se actualiza automáticamente al usar agregar, editar, eliminar, mover
+o restaurar. Solo los administradores pueden ver y ejecutar estos comandos.
+
+Comandos disponibles:
+
+   /sanciones publicar [canal]
+   /sanciones listar
+   /sanciones agregar regla castigo [posicion]
+   /sanciones editar numero [regla] [castigo]
+   /sanciones eliminar numero
+   /sanciones mover numero posicion
+   /sanciones restaurar confirmar:true
+
+El número requerido por editar, eliminar o mover se consulta con
+/sanciones listar. Todos los cambios se guardan en warnings.db.

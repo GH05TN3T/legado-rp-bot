@@ -1,0 +1,30 @@
+PANEL DE SUGERENCIAS - EXTREMORP
+================================
+
+1. Copia esta carpeta sobre la instalación actual del bot.
+2. Abre una consola dentro de la carpeta del bot.
+3. Ejecuta: npm install
+4. Registra el comando nuevo con: npm run deploy
+5. Reinicia el bot con: npm start
+
+USO
+---
+Ejecuta /panelsugerencias y selecciona:
+
+- canal_panel: donde los usuarios verán el banner y el botón.
+- canal_sugerencias: donde aparecerán las sugerencias y los votos.
+
+PERMISOS NECESARIOS
+-------------------
+El bot necesita Ver canal, Enviar mensajes, Insertar enlaces,
+Adjuntar archivos y Leer el historial de mensajes en ambos canales.
+
+FUNCIONAMIENTO
+--------------
+- El usuario pulsa "Publicar Sugerencia".
+- Discord abre un formulario con título y detalles.
+- La sugerencia se publica sin menciones peligrosas.
+- Después de cada sugerencia se publica nuevamente el panel y su botón.
+- Cada persona puede votar a favor o en contra.
+- Pulsar el mismo voto otra vez lo elimina; pulsar el contrario lo cambia.
+- Los votos quedan guardados en warnings.db aunque el bot se reinicie.

@@ -1,0 +1,14 @@
+NOTIFICACION DE BOOSTS - EXTREMORP
+
+1. En Discord Developer Portal, abre tu aplicacion y entra en Bot.
+2. Regenera el token, porque el token anterior quedo expuesto en el ZIP compartido.
+3. Activa SERVER MEMBERS INTENT.
+4. Copia el ID del canal donde se publicaran los boosts.
+5. En config.json, reemplaza PON_AQUI_EL_ID_DEL_CANAL_DE_BOOSTS por ese ID.
+6. Define el token nuevo en la variable de entorno DISCORD_TOKEN.
+7. Ejecuta npm install y luego npm start.
+
+Tambien puedes configurar el canal mediante la variable BOOST_CHANNEL_ID.
+
+El bot detecta solamente el cambio de no estar boosteando a comenzar a boostear,
+por lo que una actualizacion normal del perfil no repite la notificacion.

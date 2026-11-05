@@ -1,0 +1,33 @@
+BOT CONFIGURADO PARA VARIOS DISCORD
+
+1. En Discord Developer Portal, entra a tu aplicación y abre Bot.
+2. Regenera el token y colócalo en config.json. El token anterior estaba visible
+   dentro del ZIP y ya no debe seguir usándose.
+3. En OAuth2 > URL Generator marca bot y applications.commands.
+4. Invita el mismo bot a cada servidor donde quieras usarlo.
+5. En la carpeta del bot ejecuta: npm run deploy
+6. Inicia el bot con: npm start
+
+El despliegue elimina primero los comandos globales antiguos que provocaban
+duplicados y registra una sola copia en cada servidor donde esté el bot. Si lo
+invitas a un Discord nuevo, vuelve a ejecutar npm run deploy.
+
+Cada servidor guarda por separado sus advertencias, whitelist, canales de logs,
+verificación, Server Up, contador y palabras encadenadas. Los administradores de
+cada servidor deben ejecutar sus propios comandos de configuración.
+
+Los canales, roles y usuarios especiales escritos directamente en el código
+siguen perteneciendo a ExtremoRP. Como esos IDs no existen en otros servidores,
+no interfieren con ellos.
+
+META DIARIA DE VOICE (2 HORAS)
+
+El bot cuenta diariamente el tiempo de los usuarios que tengan el rol indicado
+en voiceTrackedRoleId. El día se reinicia a las 12:00 a. m. de República
+Dominicana y cada usuario genera un solo aviso cuando completa las 2 horas.
+
+Después de actualizar el bot:
+1. Ejecuta: npm run deploy
+2. En Discord usa /setlogs
+3. En "tipo" elige "Meta diaria de voz (2 horas)"
+4. Selecciona el canal individual donde llegarán esos avisos.
